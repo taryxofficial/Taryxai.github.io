@@ -1,0 +1,3280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080912">
+
+<title>TARYX — Smart Tools</title>
+<meta name="description" content="TARYX — useful digital tools for everyday work.">
+<meta name="author" content="Tarun Arry">
+
+<style>
+:root{
+  --bg:#070811;
+  --bg2:#0b0d18;
+  --card:#101321;
+  --card2:#15192a;
+  --text:#f8f9ff;
+  --muted:#9499b4;
+  --line:rgba(255,255,255,.09);
+  --purple:#8b5cf6;
+  --cyan:#22d3ee;
+  --pink:#ec4899;
+  --green:#34d399;
+  --yellow:#fbbf24;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 10% 0%,rgba(139,92,246,.18),transparent 30%),
+    radial-gradient(circle at 90% 12%,rgba(34,211,238,.10),transparent 27%),
+    linear-gradient(180deg,#070811,#090b16 55%,#070811);
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  background:rgba(236,72,153,.06);
+  filter:blur(100px);
+  right:-160px;
+  bottom:-160px;
+  pointer-events:none;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.container{
+  width:min(1180px,92%);
+  margin:auto;
+}
+
+/* NAV */
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  backdrop-filter:blur(18px);
+  background:rgba(7,8,17,.82);
+  border-bottom:1px solid var(--line);
+}
+
+.nav{
+  min-height:74px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.brand img{
+  width:46px;
+  height:46px;
+  border-radius:13px;
+  object-fit:contain;
+  background:rgba(255,255,255,.05);
+}
+
+.brand-name{
+  font-weight:950;
+  letter-spacing:.4px;
+  font-size:19px;
+}
+
+.brand-by{
+  display:block;
+  color:#9da2bb;
+  font-size:10px;
+  margin-top:3px;
+  letter-spacing:.2px;
+  font-weight:500;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+
+.nav-links a{
+  padding:10px 13px;
+  color:#c9cce0;
+  border-radius:10px;
+  font-size:14px;
+  transition:.25s ease;
+}
+
+.nav-links a:hover{
+  color:#fff;
+  background:rgba(255,255,255,.07);
+}
+
+.menu-btn{
+  display:none;
+  border:1px solid var(--line);
+  color:#fff;
+  background:rgba(255,255,255,.05);
+  border-radius:11px;
+  padding:9px 12px;
+}
+
+/* HERO */
+
+.hero{
+  text-align:center;
+  padding:88px 0 42px;
+}
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid rgba(139,92,246,.35);
+  background:rgba(139,92,246,.09);
+  color:#c9baff;
+  font-size:12px;
+  animation:fadeUp .7s ease both;
+}
+
+.hero h1{
+  margin-top:23px;
+  font-size:clamp(46px,7vw,82px);
+  line-height:.98;
+  letter-spacing:-4px;
+  animation:fadeUp .7s .08s ease both;
+}
+
+.gradient{
+  background:linear-gradient(90deg,#a78bfa,#22d3ee,#f472b6);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.hero p{
+  max-width:690px;
+  margin:23px auto;
+  color:var(--muted);
+  line-height:1.75;
+  font-size:15px;
+  animation:fadeUp .7s .16s ease both;
+}
+
+.hero-actions{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  animation:fadeUp .7s .24s ease both;
+}
+
+.btn{
+  border:0;
+  border-radius:12px;
+  padding:12px 18px;
+  font-weight:800;
+  transition:.25s ease;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.primary{
+  color:white;
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  box-shadow:0 8px 28px rgba(139,92,246,.20);
+}
+
+.secondary{
+  color:#fff;
+  background:rgba(255,255,255,.055);
+  border:1px solid var(--line);
+}
+
+/* SEARCH */
+
+.search-wrap{
+  max-width:760px;
+  margin:30px auto 0;
+  position:relative;
+}
+
+.search-wrap input{
+  width:100%;
+  padding:17px 20px 17px 52px;
+  border:1px solid var(--line);
+  border-radius:17px;
+  outline:none;
+  color:#fff;
+  background:rgba(255,255,255,.045);
+  transition:.25s ease;
+}
+
+.search-wrap input:focus{
+  border-color:rgba(139,92,246,.65);
+  box-shadow:0 0 0 4px rgba(139,92,246,.08);
+}
+
+.search-icon{
+  position:absolute;
+  left:19px;
+  top:13px;
+  font-size:23px;
+  color:#9da2bb;
+}
+
+/* SECTION */
+
+.section{
+  padding:58px 0;
+}
+
+.section-head{
+  margin-bottom:24px;
+}
+
+.section-head h2{
+  font-size:32px;
+  letter-spacing:-1px;
+}
+
+.section-head p{
+  color:var(--muted);
+  margin-top:7px;
+  line-height:1.6;
+}
+
+/* CATEGORIES */
+
+.categories{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px;
+}
+
+.category{
+  text-align:left;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.035);
+  border-radius:18px;
+  padding:21px;
+  color:#fff;
+  transition:.25s ease;
+}
+
+.category:hover{
+  transform:translateY(-5px);
+  border-color:rgba(34,211,238,.35);
+  background:rgba(255,255,255,.055);
+}
+
+.category-icon{
+  font-size:27px;
+}
+
+.category strong{
+  display:block;
+  margin-top:12px;
+}
+
+.category small{
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+/* FILTER */
+
+.filters{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:22px;
+}
+
+.filter{
+  padding:9px 13px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  color:#c9cce0;
+  transition:.2s ease;
+}
+
+.filter:hover,
+.filter.active{
+  color:#fff;
+  border-color:rgba(139,92,246,.55);
+  background:rgba(139,92,246,.15);
+}
+
+/* TOOLS */
+
+.tools{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.tool{
+  border:1px solid var(--line);
+  border-radius:19px;
+  padding:20px;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+  transition:.25s ease;
+}
+
+.tool:hover{
+  transform:translateY(-5px);
+  border-color:rgba(139,92,246,.42);
+  box-shadow:0 15px 40px rgba(0,0,0,.18);
+}
+
+.tool-icon{
+  width:45px;
+  height:45px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:rgba(255,255,255,.07);
+  font-size:21px;
+}
+
+.tool h3{
+  margin-top:14px;
+  font-size:17px;
+}
+
+.tool p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+  margin:7px 0 16px;
+}
+
+.tool button{
+  width:100%;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  color:#fff;
+  background:rgba(255,255,255,.055);
+  font-weight:750;
+  transition:.2s ease;
+}
+
+.tool button:hover{
+  background:linear-gradient(90deg,var(--purple),#6366f1);
+  border-color:transparent;
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:3000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(9px);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .25s ease,visibility .25s ease;
+}
+
+.modal.show{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+
+.modal-box{
+  position:relative;
+  width:min(700px,100%);
+  max-height:90vh;
+  overflow:auto;
+  padding:25px;
+  border-radius:23px;
+  border:1px solid var(--line);
+  background:
+    radial-gradient(circle at 90% 0%,rgba(139,92,246,.12),transparent 35%),
+    #0e101d;
+  transform:translateY(20px) scale(.97);
+  transition:transform .28s cubic-bezier(.2,.8,.2,1);
+}
+
+.modal.show .modal-box{
+  transform:translateY(0) scale(1);
+}
+
+.close{
+  position:absolute;
+  right:15px;
+  top:15px;
+  width:36px;
+  height:36px;
+  border:0;
+  border-radius:50%;
+  color:#fff;
+  background:rgba(255,255,255,.08);
+  font-size:21px;
+}
+
+.modal-box h2{
+  padding-right:45px;
+}
+
+.form{
+  display:grid;
+  gap:10px;
+  margin-top:20px;
+}
+
+.form input,
+.form textarea,
+.form select{
+  width:100%;
+  padding:12px;
+  border-radius:11px;
+  border:1px solid var(--line);
+  outline:none;
+  background:#080a13;
+  color:#fff;
+}
+
+.form input:focus,
+.form textarea:focus,
+.form select:focus{
+  border-color:rgba(139,92,246,.55);
+}
+
+.form textarea{
+  min-height:130px;
+  resize:vertical;
+}
+
+.result{
+  margin-top:6px;
+  padding:15px;
+  border-radius:13px;
+  border:1px solid rgba(34,211,238,.14);
+  background:rgba(34,211,238,.055);
+  color:#e9fbff;
+  white-space:pre-wrap;
+  word-break:break-word;
+  line-height:1.55;
+}
+
+/* CALCULATOR */
+
+.calc{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin-top:18px;
+}
+
+.calc input{
+  grid-column:1/-1;
+  text-align:right;
+  font-size:25px;
+}
+
+.calc button{
+  padding:15px 5px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#15182a;
+  color:#fff;
+  transition:.18s ease;
+}
+
+.calc button:hover{
+  background:#272b46;
+  transform:translateY(-1px);
+}
+
+/* ABOUT */
+
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.info-card{
+  padding:28px;
+  border-radius:21px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.035);
+}
+
+.info-card p{
+  color:var(--muted);
+  line-height:1.75;
+  margin-top:10px;
+}
+
+.socials{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:18px;
+}
+
+.socials a{
+  padding:10px 13px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  color:#dddff0;
+  transition:.2s ease;
+}
+
+.socials a:hover{
+  background:rgba(255,255,255,.07);
+  color:#fff;
+}
+
+/* PRICING */
+
+.pricing{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.plan{
+  position:relative;
+  padding:27px;
+  border:1px solid var(--line);
+  border-radius:21px;
+  background:rgba(255,255,255,.035);
+  transition:.25s ease;
+}
+
+.plan:hover{
+  transform:translateY(-5px);
+}
+
+.plan.featured{
+  border-color:rgba(139,92,246,.52);
+  background:rgba(139,92,246,.085);
+}
+
+.plan-label{
+  color:#aeb3c9;
+  font-size:11px;
+  letter-spacing:1.5px;
+}
+
+.plan h3{
+  margin:9px 0;
+}
+
+.price{
+  font-size:35px;
+  font-weight:950;
+}
+
+.plan ul{
+  list-style:none;
+  margin:17px 0;
+}
+
+.plan li{
+  padding:7px 0;
+  color:#c9ccdc;
+  font-size:14px;
+}
+
+.plan li::before{
+  content:"✓ ";
+  color:var(--green);
+}
+
+.currency-note{
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:15px;
+}
+
+/* QR */
+
+.qr{
+  width:230px;
+  max-width:100%;
+  display:block;
+  margin:20px auto;
+  padding:8px;
+  border-radius:15px;
+  background:#fff;
+}
+
+/* FOOTER */
+
+footer{
+  margin-top:40px;
+  border-top:1px solid var(--line);
+  padding:35px 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.footer-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.footer-brand{
+  color:#fff;
+  font-weight:850;
+}
+
+/* ANIMATION */
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(15px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.025)}
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  .categories{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .tools{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .pricing{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:700px){
+
+  .nav-links{
+    display:none;
+  }
+
+  .nav-links.open{
+    display:flex;
+    position:absolute;
+    left:0;
+    right:0;
+    top:74px;
+    padding:10px;
+    flex-direction:column;
+    background:#080a13;
+    border-bottom:1px solid var(--line);
+  }
+
+  .nav-links.open a{
+    width:100%;
+    text-align:center;
+  }
+
+  .menu-btn{
+    display:block;
+  }
+
+  .hero{
+    padding-top:65px;
+  }
+
+  .hero h1{
+    letter-spacing:-3px;
+  }
+
+  .tools{
+    grid-template-columns:1fr;
+  }
+
+  .about-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer-inner{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+}
+
+@media(max-width:450px){
+
+  .categories{
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+  }
+
+  .category{
+    padding:16px;
+  }
+
+  .category small{
+    font-size:11px;
+  }
+
+  .section{
+    padding:45px 0;
+  }
+
+  .hero h1{
+    font-size:48px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<nav>
+  <div class="container nav">
+
+    <a href="#home" class="brand">
+
+      <!-- Put your logo file in the same folder -->
+      <img src="logo.png" alt="TARYX Logo">
+
+      <div>
+        <div class="brand-name">TARYX</div>
+        <span class="brand-by">Made by Tarun Arry</span>
+      </div>
+
+    </a>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#categories">Categories</a>
+      <a href="#tools">Tools</a>
+      <a href="#pricing">Plans</a>
+      <a href="#about">About</a>
+    </div>
+
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+  </div>
+</nav>
+
+
+<!-- HERO -->
+
+<header class="hero" id="home">
+
+  <div class="container">
+
+    <div class="pill">
+      ✦ Smart tools for everyday work
+    </div>
+
+    <h1>
+      Everything useful.<br>
+      <span class="gradient">In one place.</span>
+    </h1>
+
+    <p>
+      TARYX brings together simple calculators, converters,
+      text utilities, developer tools, security tools, design
+      utilities and productivity tools in one clean experience.
+    </p>
+
+    <div class="hero-actions">
+
+      <a href="#tools" class="btn primary">
+        Explore Tools →
+      </a>
+
+      <a href="#categories" class="btn secondary">
+        Browse Categories
+      </a>
+
+    </div>
+
+    <div class="search-wrap">
+
+      <span class="search-icon">⌕</span>
+
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Search a tool... e.g. GST, JSON, QR, password"
+        oninput="searchTools()"
+      >
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- CATEGORIES -->
+
+<section class="section" id="categories">
+
+  <div class="container">
+
+    <div class="section-head">
+      <h2>Explore Categories</h2>
+      <p>Choose what you need and discover useful tools.</p>
+    </div>
+
+    <div class="categories">
+
+      <button class="category" onclick="filterCategory('calculator')">
+        <span class="category-icon">🧮</span>
+        <strong>Calculators</strong>
+        <small>GST, EMI, age, BMI, profit & more</small>
+      </button>
+
+      <button class="category" onclick="filterCategory('converter')">
+        <span class="category-icon">🔄</span>
+        <strong>Converters</strong>
+        <small>Length, weight, temperature & data</small>
+      </button>
+
+      <button class="category" onclick="filterCategory('text')">
+        <span class="category-icon">📝</span>
+        <strong>Text Tools</strong>
+        <small>Words, cases, spaces & slugs</small>
+      </button>
+
+      <button class="category" onclick="filterCategory('developer')">
+        <span class="category-icon">💻</span>
+        <strong>Developer</strong>
+        <small>JSON, Base64, URL & UUID</small>
+      </button>
+
+      <button class="category" onclick="filterCategory('security')">
+        <span class="category-icon">🔐</span>
+        <strong>Security</strong>
+        <small>Password & random generators</small>
+      </button>
+
+      <button class="category" onclick="filterCategory('design')">
+        <span class="category-icon">🎨</span>
+        <strong>Design</strong>
+        <small>Colors & gradient utilities</small>
+      </button>
+
+      <button class="category" onclick="filterCategory('qr')">
+        <span class="category-icon">▣</span>
+        <strong>QR Tools</strong>
+        <small>Create QR codes from text or URLs</small>
+      </button>
+
+      <button class="category" onclick="filterCategory('productivity')">
+        <span class="category-icon">⚡</span>
+        <strong>Productivity</strong>
+        <small>Timers and useful utilities</small>
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- TOOLS -->
+
+<section class="section" id="tools">
+
+  <div class="container">
+
+    <div class="section-head">
+      <h2>Tool Library</h2>
+      <p>Pick a tool and start using it instantly.</p>
+    </div>
+
+    <div class="filters">
+
+      <button class="filter active" onclick="setFilter('all',this)">All</button>
+
+      <button class="filter" onclick="setFilter('calculator',this)">
+        🧮 Calculators
+      </button>
+
+      <button class="filter" onclick="setFilter('converter',this)">
+        🔄 Converters
+      </button>
+
+      <button class="filter" onclick="setFilter('text',this)">
+        📝 Text
+      </button>
+
+      <button class="filter" onclick="setFilter('developer',this)">
+        💻 Developer
+      </button>
+
+      <button class="filter" onclick="setFilter('security',this)">
+        🔐 Security
+      </button>
+
+      <button class="filter" onclick="setFilter('design',this)">
+        🎨 Design
+      </button>
+
+      <button class="filter" onclick="setFilter('qr',this)">
+        ▣ QR
+      </button>
+
+      <button class="filter" onclick="setFilter('productivity',this)">
+        ⚡ Productivity
+      </button>
+
+    </div>
+
+
+    <div class="tools" id="toolsGrid">
+
+
+      <!-- CALCULATORS -->
+
+      <article class="tool" data-cat="calculator" data-name="basic calculator">
+        <div class="tool-icon">🧮</div>
+        <h3>Basic Calculator</h3>
+        <p>Perform everyday arithmetic calculations.</p>
+        <button onclick="openTool('calc')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="calculator" data-name="percentage calculator">
+        <div class="tool-icon">%</div>
+        <h3>Percentage Calculator</h3>
+        <p>Calculate a percentage of any number.</p>
+        <button onclick="openTool('percentage')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="calculator" data-name="gst calculator">
+        <div class="tool-icon">₹</div>
+        <h3>GST Calculator</h3>
+        <p>Calculate GST and final amount.</p>
+        <button onclick="openTool('gst')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="calculator" data-name="discount calculator">
+        <div class="tool-icon">🏷️</div>
+        <h3>Discount Calculator</h3>
+        <p>Find discount amount and final price.</p>
+        <button onclick="openTool('discount')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="calculator" data-name="age calculator">
+        <div class="tool-icon">🎂</div>
+        <h3>Age Calculator</h3>
+        <p>Calculate age from date of birth.</p>
+        <button onclick="openTool('age')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="calculator" data-name="bmi calculator">
+        <div class="tool-icon">⚖️</div>
+        <h3>BMI Calculator</h3>
+        <p>Calculate BMI using height and weight.</p>
+        <button onclick="openTool('bmi')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="calculator" data-name="emi calculator">
+        <div class="tool-icon">🏦</div>
+        <h3>EMI Calculator</h3>
+        <p>Estimate monthly loan EMI.</p>
+        <button onclick="openTool('emi')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="calculator" data-name="profit calculator">
+        <div class="tool-icon">📈</div>
+        <h3>Profit Calculator</h3>
+        <p>Calculate profit, loss and percentage.</p>
+        <button onclick="openTool('profit')">Open Tool</button>
+      </article>
+
+
+      <!-- CONVERTERS -->
+
+      <article class="tool" data-cat="converter" data-name="length converter">
+        <div class="tool-icon">📏</div>
+        <h3>Length Converter</h3>
+        <p>Meter, kilometer, foot, inch and mile.</p>
+        <button onclick="openTool('length')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="converter" data-name="weight converter">
+        <div class="tool-icon">⚖️</div>
+        <h3>Weight Converter</h3>
+        <p>KG, grams, pounds and ounces.</p>
+        <button onclick="openTool('weight')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="converter" data-name="temperature converter">
+        <div class="tool-icon">🌡️</div>
+        <h3>Temperature Converter</h3>
+        <p>Celsius, Fahrenheit and Kelvin.</p>
+        <button onclick="openTool('temperature')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="converter" data-name="data converter">
+        <div class="tool-icon">💾</div>
+        <h3>Data Converter</h3>
+        <p>Bytes, KB, MB and GB.</p>
+        <button onclick="openTool('data')">Open Tool</button>
+      </article>
+
+
+      <!-- TEXT -->
+
+      <article class="tool" data-cat="text" data-name="word counter">
+        <div class="tool-icon">🔢</div>
+        <h3>Word Counter</h3>
+        <p>Count words, characters and lines.</p>
+        <button onclick="openTool('word')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="text" data-name="case converter">
+        <div class="tool-icon">Aa</div>
+        <h3>Case Converter</h3>
+        <p>Uppercase, lowercase and title case.</p>
+        <button onclick="openTool('case')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="text" data-name="remove spaces">
+        <div class="tool-icon">↔</div>
+        <h3>Remove Extra Spaces</h3>
+        <p>Clean unnecessary spaces from text.</p>
+        <button onclick="openTool('spaces')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="text" data-name="slug generator">
+        <div class="tool-icon">🔗</div>
+        <h3>Slug Generator</h3>
+        <p>Create clean URL-friendly slugs.</p>
+        <button onclick="openTool('slug')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="text" data-name="duplicate remover">
+        <div class="tool-icon">🧹</div>
+        <h3>Duplicate Line Remover</h3>
+        <p>Remove duplicate lines from text.</p>
+        <button onclick="openTool('duplicates')">Open Tool</button>
+      </article>
+
+
+      <!-- DEVELOPER -->
+
+      <article class="tool" data-cat="developer" data-name="json formatter">
+        <div class="tool-icon">{ }</div>
+        <h3>JSON Formatter</h3>
+        <p>Format and validate JSON.</p>
+        <button onclick="openTool('json')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="developer" data-name="base64 encoder decoder">
+        <div class="tool-icon">B64</div>
+        <h3>Base64 Encoder / Decoder</h3>
+        <p>Encode and decode Base64 text.</p>
+        <button onclick="openTool('base64')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="developer" data-name="url encoder decoder">
+        <div class="tool-icon">🌐</div>
+        <h3>URL Encoder / Decoder</h3>
+        <p>Encode or decode URL text.</p>
+        <button onclick="openTool('url')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="developer" data-name="uuid generator">
+        <div class="tool-icon">🆔</div>
+        <h3>UUID Generator</h3>
+        <p>Generate random UUIDs.</p>
+        <button onclick="openTool('uuid')">Open Tool</button>
+      </article>
+
+
+      <!-- SECURITY -->
+
+      <article class="tool" data-cat="security" data-name="password generator">
+        <div class="tool-icon">🔑</div>
+        <h3>Password Generator</h3>
+        <p>Generate strong random passwords.</p>
+        <button onclick="openTool('password')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="security" data-name="random number generator">
+        <div class="tool-icon">🎲</div>
+        <h3>Random Number</h3>
+        <p>Generate random numbers between limits.</p>
+        <button onclick="openTool('random')">Open Tool</button>
+      </article>
+
+
+      <!-- DESIGN -->
+
+      <article class="tool" data-cat="design" data-name="hex rgb color converter">
+        <div class="tool-icon">🎨</div>
+        <h3>HEX → RGB</h3>
+        <p>Convert HEX colors into RGB values.</p>
+        <button onclick="openTool('color')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="design" data-name="gradient generator">
+        <div class="tool-icon">🌈</div>
+        <h3>Gradient Generator</h3>
+        <p>Create CSS gradients visually.</p>
+        <button onclick="openTool('gradient')">Open Tool</button>
+      </article>
+
+
+      <!-- QR -->
+
+      <article class="tool" data-cat="qr" data-name="qr generator">
+        <div class="tool-icon">▣</div>
+        <h3>QR Generator</h3>
+        <p>Create QR codes from text or URLs.</p>
+        <button onclick="openTool('qr')">Open Tool</button>
+      </article>
+
+
+      <!-- PRODUCTIVITY -->
+
+      <article class="tool" data-cat="productivity" data-name="pomodoro timer">
+        <div class="tool-icon">🍅</div>
+        <h3>Pomodoro Timer</h3>
+        <p>Focus with a 25-minute timer.</p>
+        <button onclick="openTool('pomodoro')">Open Tool</button>
+      </article>
+
+
+      <article class="tool" data-cat="productivity" data-name="stopwatch">
+        <div class="tool-icon">⏱️</div>
+        <h3>Stopwatch</h3>
+        <p>Simple precision stopwatch.</p>
+        <button onclick="openTool('stopwatch')">Open Tool</button>
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- TOOL MODAL -->
+
+<div class="modal" id="toolModal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeTool()">×</button>
+
+    <div id="toolContent"></div>
+
+  </div>
+
+</div>
+
+
+<!-- PRICING -->
+
+<section class="section" id="pricing">
+
+  <div class="container">
+
+    <div class="section-head">
+      <h2>TARYX Plans</h2>
+      <p>Optional plans to support the platform and future features.</p>
+    </div>
+
+    <div class="pricing">
+
+      <div class="plan">
+
+        <span class="plan-label">STARTER</span>
+
+        <h3>Basic</h3>
+
+        <div class="price">₹199</div>
+
+        <ul>
+          <li>Access to free tools</li>
+          <li>Tool library</li>
+          <li>Future updates</li>
+        </ul>
+
+        <button class="btn secondary" onclick="showQR('Basic — ₹199/month')">
+          Subscribe
+        </button>
+
+      </div>
+
+
+      <div class="plan featured">
+
+        <span class="plan-label">MOST POPULAR</span>
+
+        <h3>Pro</h3>
+
+        <div class="price">₹399</div>
+
+        <ul>
+          <li>Everything in Basic</li>
+          <li>New tools early</li>
+          <li>Priority suggestions</li>
+        </ul>
+
+        <button class="btn primary" onclick="showQR('Pro — ₹399/month')">
+          Choose Pro
+        </button>
+
+      </div>
+
+
+      <div class="plan">
+
+        <span class="plan-label">PREMIUM</span>
+
+        <h3>Premium</h3>
+
+        <div class="price">₹699</div>
+
+        <ul>
+          <li>Everything in Pro</li>
+          <li>Exclusive resources</li>
+          <li>Priority support</li>
+        </ul>
+
+        <button class="btn secondary" onclick="showQR('Premium — ₹699/month')">
+          Choose Premium
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="currency-note">
+      Approx USD: ₹199 ≈ $2.3 · ₹399 ≈ $4.7 · ₹699 ≈ $8.2
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- QR PAYMENT MODAL -->
+
+<div class="modal" id="qrModal">
+
+  <div class="modal-box" style="text-align:center;max-width:460px">
+
+    <button class="close" onclick="closeQR()">×</button>
+
+    <h2>TARYX Subscription</h2>
+
+    <p id="selectedPlan"
+       style="color:#a78bfa;margin-top:8px">
+    </p>
+
+    <!-- Put your payment QR image in same folder -->
+    <img
+      src="qr-code.jpg"
+      alt="TARYX Payment QR"
+      class="qr"
+    >
+
+    <p style="color:var(--muted);font-size:13px;line-height:1.7">
+      Scan the QR code to make your payment.
+      After payment, send the confirmation to TARYX.
+    </p>
+
+    <a
+      class="btn primary"
+      style="display:inline-block;margin-top:15px"
+      href="mailto:tarunsharma05032010@gmail.com?subject=TARYX%20Subscription"
+    >
+      Email TARYX
+    </a>
+
+  </div>
+
+</div>
+
+
+<!-- ABOUT -->
+
+<section class="section" id="about">
+
+  <div class="container">
+
+    <div class="about-grid">
+
+      <div class="info-card">
+
+        <h2>About TARYX</h2>
+
+        <p>
+          TARYX is a digital tools platform created by
+          Tarun Arry to make everyday online tasks simpler,
+          faster and easier to access.
+        </p>
+
+        <div class="socials">
+
+          <a href="mailto:tarunsharma05032010@gmail.com">
+            📧 Email
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/tarunarry"
+            target="_blank"
+            rel="noopener"
+          >
+            in LinkedIn
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="info-card">
+
+        <h2>Built for Everyone</h2>
+
+        <p>
+          From students and creators to developers and
+          small businesses, TARYX is designed to keep
+          useful everyday utilities in one convenient place.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="container footer-inner">
+
+    <div>
+      <div class="footer-brand">TARYX</div>
+      <div style="margin-top:5px">
+        Made by Tarun Arry
+      </div>
+    </div>
+
+    <div>
+      © 2026 TARYX. All rights reserved.
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+/* ================= NAV ================= */
+
+function toggleMenu(){
+
+  document
+    .getElementById("navLinks")
+    .classList.toggle("open");
+
+}
+
+
+/* ================= SEARCH ================= */
+
+function searchTools(){
+
+  const query =
+    document
+      .getElementById("searchInput")
+      .value
+      .toLowerCase()
+      .trim();
+
+  document
+    .querySelectorAll(".tool")
+    .forEach(tool=>{
+
+      const text =
+        (
+          tool.dataset.name +
+          " " +
+          tool.innerText
+        ).toLowerCase();
+
+      tool.style.display =
+        text.includes(query) ? "" : "none";
+
+    });
+
+}
+
+
+/* ================= FILTER ================= */
+
+function setFilter(category,button){
+
+  document
+    .querySelectorAll(".filter")
+    .forEach(x=>x.classList.remove("active"));
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  document
+    .querySelectorAll(".tool")
+    .forEach(tool=>{
+
+      tool.style.display =
+        category==="all" ||
+        tool.dataset.cat===category
+        ? ""
+        : "none";
+
+    });
+
+  document
+    .getElementById("tools")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+  document
+    .getElementById("searchInput")
+    .value="";
+
+}
+
+
+function filterCategory(category){
+
+  const filters =
+    document.querySelectorAll(".filter");
+
+  filters.forEach(x=>{
+    x.classList.remove("active");
+  });
+
+  filters.forEach(x=>{
+
+    if(
+      x.textContent
+        .toLowerCase()
+        .includes(category)
+    ){
+      x.classList.add("active");
+    }
+
+  });
+
+  document
+    .querySelectorAll(".tool")
+    .forEach(tool=>{
+
+      tool.style.display =
+        tool.dataset.cat===category
+        ? ""
+        : "none";
+
+    });
+
+  document
+    .getElementById("tools")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+}
+
+
+/* ================= MODAL ================= */
+
+function openTool(type){
+
+  const modal =
+    document.getElementById("toolModal");
+
+  const content =
+    document.getElementById("toolContent");
+
+  modal.classList.add("show");
+
+  content.innerHTML =
+    toolTemplates[type] ||
+    "<h2>Tool unavailable</h2>";
+
+}
+
+
+function closeTool(){
+
+  document
+    .getElementById("toolModal")
+    .classList.remove("show");
+
+  if(pomodoroInterval)
+    clearInterval(pomodoroInterval);
+
+  if(stopwatchInterval)
+    clearInterval(stopwatchInterval);
+
+}
+
+
+/* ================= TOOL TEMPLATES ================= */
+
+const toolTemplates = {
+
+
+calc:`
+
+<h2>🧮 Basic Calculator</h2>
+
+<div class="calc">
+
+<input id="calcDisplay" readonly>
+
+${[
+"7","8","9","/",
+"4","5","6","*",
+"1","2","3","-",
+"0",".","=","+",
+"C"
+].map(x=>
+`
+<button onclick="calcPress('${x}')">
+${x}
+</button>
+`
+).join("")}
+
+</div>
+
+`,
+
+
+percentage:`
+
+<h2>Percentage Calculator</h2>
+
+<div class="form">
+
+<input id="percentNumber"
+type="number"
+placeholder="Number">
+
+<input id="percentValue"
+type="number"
+placeholder="Percentage">
+
+<button class="btn primary"
+onclick="calculatePercentage()">
+Calculate
+</button>
+
+<div id="toolResult" class="result"></div>
+
+</div>
+
+`,
+
+
+gst:`
+
+<h2>₹ GST Calculator</h2>
+
+<div class="form">
+
+<input id="gstAmount"
+type="number"
+placeholder="Amount">
+
+<input id="gstRate"
+type="number"
+placeholder="GST % e.g. 18">
+
+<button class="btn primary"
+onclick="calculateGST()">
+Calculate
+</button>
+
+<div id="toolResult" class="result"></div>
+
+</div>
+
+`,
+
+
+discount:`
+
+<h2>🏷️ Discount Calculator</h2>
+
+<div class="form">
+
+<input id="originalPrice"
+type="number"
+placeholder="Original price">
+
+<input id="discountRate"
+type="number"
+placeholder="Discount %">
+
+<button class="btn primary"
+onclick="calculateDiscount()">
+Calculate
+</button>
+
+<div id="toolResult" class="result"></div>
+
+</div>
+
+`,
+
+
+age:`
+
+<h2>🎂 Age Calculator</h2>
+
+<div class="form">
+
+<input id="birthDate" type="date">
+
+<button class="btn primary"
+onclick="calculateAge()">
+Calculate Age
+</button>
+
+<div id="toolResult" class="result"></div>
+
+</div>
+
+`,
+
+
+bmi:`
+
+<h2>⚖️ BMI Calculator</h2>
+
+<div class="form">
+
+<input id="bmiHeight"
+type="number"
+placeholder="Height in cm">
+
+<input id="bmiWeight"
+type="number"
+placeholder="Weight in kg">
+
+<button class="btn primary"
+onclick="calculateBMI()">
+Calculate BMI
+</button>
+
+<div id="toolResult" class="result"></div>
+
+</div>
+
+`,
+
+
+emi:`
+
+<h2>🏦 EMI Calculator</h2>
+
+<div class="form">
+
+<input id="loanAmount"
+type="number"
+placeholder="Loan amount ₹">
+
+<input id="annualInterest"
+type="number"
+placeholder="Annual interest %">
+
+<input id="loanMonths"
+type="number"
+placeholder="Loan duration in months">
+
+<button class="btn primary"
+onclick="calculateEMI()">
+Calculate EMI
+</button>
+
+<div id="toolResult" class="result"></div>
+
+</div>
+
+`,
+
+
+profit:`
+
+<h2>📈 Profit Calculator</h2>
+
+<div class="form">
+
+<input id="costPrice"
+type="number"
+placeholder="Cost price">
+
+<input id="sellingPrice"
+type="number"
+placeholder="Selling price">
+
+<button class="btn primary"
+onclick="calculateProfit()">
+Calculate
+</button>
+
+<div id="toolResult" class="result"></div>
+
+</div>
+
+`,
+
+
+length:converterTemplate(
+"Length",
+["meter","kilometer","foot","inch","mile"]
+),
+
+
+weight:converterTemplate(
+"Weight",
+["kg","gram","pound","ounce"]
+),
+
+
+temperature:converterTemplate(
+"Temperature",
+["celsius","fahrenheit","kelvin"]
+),
+
+
+data:converterTemplate(
+"Data",
+["byte","kb","mb","gb"]
+),
+
+
+word:`
+
+<h2>📝 Word Counter</h2>
+
+<div class="form">
+
+<textarea
+id="wordText"
+oninput="countWords()"
+placeholder="Type or paste your text..."
+></textarea>
+
+<div id="toolResult" class="result">
+Words: 0
+Characters: 0
+Lines: 0
+</div>
+
+</div>
+
+`,
+
+
+case:`
+
+<h2>🔤 Case Converter</h2>
+
+<div class="form">
+
+<textarea
+id="caseInput"
+placeholder="Enter text..."
+></textarea>
+
+<button
+class="btn secondary"
+onclick="convertCase('upper')">
+UPPERCASE
+</button>
+
+<button
+class="btn secondary"
+onclick="convertCase('lower')">
+lowercase
+</button>
+
+<button
+class="btn secondary"
+onclick="convertCase('title')">
+Title Case
+</button>
+
+<textarea
+id="caseOutput"
+placeholder="Result..."
+></textarea>
+
+</div>
+
+`,
+
+
+spaces:`
+
+<h2>🧹 Remove Extra Spaces</h2>
+
+<div class="form">
+
+<textarea
+id="spacesInput"
+placeholder="Enter text..."
+></textarea>
+
+<button
+class="btn primary"
+onclick="removeExtraSpaces()">
+Clean Text
+</button>
+
+<textarea
+id="spacesOutput"
+placeholder="Result..."
+></textarea>
+
+</div>
+
+`,
+
+
+slug:`
+
+<h2>🔗 Slug Generator</h2>
+
+<div class="form">
+
+<input
+id="slugInput"
+placeholder="Your article title">
+
+<button
+class="btn primary"
+onclick="generateSlug()">
+Generate Slug
+</button>
+
+<div id="toolResult" class="result"></div>
+
+</div>
+
+`,
+
+
+duplicates:`
+
+<h2>🧹 Duplicate Line Remover</h2>
+
+<div class="form">
+
+<textarea
+id="duplicateInput"
+placeholder="Write one item per line..."
+></textarea>
+
+<button
+class="btn primary"
+onclick="removeDuplicates()">
+Remove Duplicates
+</button>
+
+<textarea
+id="duplicateOutput"
+placeholder="Result..."
+></textarea>
+
+</div>
+
+`,
+
+
+json:`
+
+<h2>{ } JSON Formatter</h2>
+
+<div class="form">
+
+<textarea
+id="jsonInput"
+placeholder='{"name":"TARYX"}'
+></textarea>
+
+<button
+class="btn primary"
+onclick="formatJSON()">
+Format JSON
+</button>
+
+<div id="toolResult" class="result"></div>
+
+</div>
+
+`,
+
+
+base64:`
+
+<h2>🔐 Base64 Encoder / Decoder</h2>
+
+<div class="form">
+
+<textarea
+id="baseInput"
+placeholder="Enter text..."
+></textarea>
+
+<button
+class="btn secondary"
+onclick="encodeBase64()">
+Encode
+</button>
+
+<button
+class="btn secondary"
+onclick="decodeBase64()">
+Decode
+</button>
+
+<textarea
+id="baseOutput"
+placeholder="Result..."
+></textarea>
+
+</div>
+
+`,
+
+
+url:`
+
+<h2>🌐 URL Encoder / Decoder</h2>
+
+<div class="form">
+
+<textarea
+id="urlInput"
+placeholder="Enter text or URL..."
+></textarea>
+
+<button
+class="btn secondary"
+onclick="encodeURL()">
+Encode
+</button>
+
+<button
+class="btn secondary"
+onclick="decodeURL()">
+Decode
+</button>
+
+<textarea
+id="urlOutput"
+placeholder="Result..."
+></textarea>
+
+</div>
+
+`,
+
+
+uuid:`
+
+<h2>🆔 UUID Generator</h2>
+
+<div class="form">
+
+<button
+class="btn primary"
+onclick="generateUUID()">
+Generate UUID
+</button>
+
+<div id="toolResult" class="result"></div>
+
+</div>
+
+`,
+
+
+password:`
+
+<h2>🔑 Password Generator</h2>
+
+<div class="form">
+
+<input
+id="passwordLength"
+type="number"
+value="16"
+min="4"
+max="100"
+placeholder="Password length">
+
+<button
+class="btn primary"
+onclick="generatePassword()">
+Generate Password
+</button>
+
+<div id="toolResult" class="result"></div>
+
+</div>
+
+`,
+
+
+random:`
+
+<h2>🎲 Random Number</h2>
+
+<div class="form">
+
+<input
+id="randomMin"
+type="number"
+placeholder="Minimum">
+
+<input
+id="randomMax"
+type="number"
+placeholder="Maximum">
+
+<button
+class="btn primary"
+onclick="generateRandom()">
+Generate
+</button>
+
+<div id="toolResult" class="result"></div>
+
+</div>
+
+`,
+
+
+color:`
+
+<h2>🎨 HEX → RGB</h2>
+
+<div class="form">
+
+<input
+id="hexInput"
+value="#8b5cf6"
+placeholder="#8b5cf6">
+
+<button
+class="btn primary"
+onclick="convertColor()">
+Convert
+</button>
+
+<div id="toolResult" class="result"></div>
+
+</div>
+
+`,
+
+
+gradient:`
+
+<h2>🌈 Gradient Generator</h2>
+
+<div class="form">
+
+<input
+id="gradientOne"
+type="color"
+value="#8b5cf6">
+
+<input
+id="gradientTwo"
+type="color"
+value="#22d3ee">
+
+<input
+id="gradientAngle"
+type="number"
+value="90"
+placeholder="Angle">
+
+<button
+class="btn primary"
+onclick="generateGradient()">
+Generate
+</button>
+
+<div
+id="gradientPreview"
+style="
+height:160px;
+border-radius:16px;
+margin-top:6px;
+">
+</div>
+
+<div id="toolResult" class="result"></div>
+
+</div>
+
+`,
+
+
+qr:`
+
+<h2>▣ QR Generator</h2>
+
+<p style="
+color:var(--muted);
+margin-top:8px;
+line-height:1.6;
+">
+Create a QR code from a URL or text.
+</p>
+
+<div class="form">
+
+<input
+id="qrInput"
+placeholder="https://example.com">
+
+<button
+class="btn primary"
+onclick="generateQR()">
+Generate QR
+</button>
+
+<div
+id="qrOutput"
+style="
+text-align:center;
+margin-top:12px;
+">
+</div>
+
+</div>
+
+`,
+
+
+pomodoro:`
+
+<h2>🍅 Pomodoro Timer</h2>
+
+<div style="text-align:center;margin-top:28px">
+
+<div
+id="pomodoroTimer"
+style="
+font-size:65px;
+font-weight:950;
+">
+25:00
+</div>
+
+<div style="
+display:flex;
+justify-content:center;
+gap:8px;
+margin-top:18px;
+">
+
+<button
+class="btn primary"
+onclick="startPomodoro()">
+Start
+</button>
+
+<button
+class="btn secondary"
+onclick="resetPomodoro()">
+Reset
+</button>
+
+</div>
+
+</div>
+
+`,
+
+
+stopwatch:`
+
+<h2>⏱️ Stopwatch</h2>
+
+<div style="text-align:center;margin-top:28px">
+
+<div
+id="stopwatchTimer"
+style="
+font-size:60px;
+font-weight:950;
+">
+00:00:00
+</div>
+
+<div style="
+display:flex;
+justify-content:center;
+gap:8px;
+flex-wrap:wrap;
+margin-top:18px;
+">
+
+<button
+class="btn primary"
+onclick="startStopwatch()">
+Start
+</button>
+
+<button
+class="btn secondary"
+onclick="stopStopwatch()">
+Stop
+</button>
+
+<button
+class="btn secondary"
+onclick="resetStopwatch()">
+Reset
+</button>
+
+</div>
+
+</div>
+
+`
+
+};
+
+
+/* ================= CONVERTER TEMPLATE ================= */
+
+function converterTemplate(title,units){
+
+return `
+
+<h2>${title} Converter</h2>
+
+<div class="form">
+
+<input
+id="converterValue"
+type="number"
+placeholder="Enter value">
+
+<select id="converterFrom">
+
+${units.map(unit=>
+`<option value="${unit}">
+${unit}
+</option>`
+).join("")}
+
+</select>
+
+<select id="converterTo">
+
+${units.map(unit=>
+`<option value="${unit}">
+${unit}
+</option>`
+).join("")}
+
+</select>
+
+<button
+class="btn primary"
+onclick="convertUnits('${title.toLowerCase()}')">
+Convert
+</button>
+
+<div id="toolResult" class="result"></div>
+
+</div>
+
+`;
+
+}
+
+
+/* ================= CALCULATOR ================= */
+
+function calcPress(value){
+
+  const display =
+    document.getElementById("calcDisplay");
+
+  if(!display) return;
+
+  if(value==="C"){
+    display.value="";
+    return;
+  }
+
+  if(value==="="){
+
+    try{
+
+      if(!/^[0-9+\-*/(). ]+$/.test(display.value)){
+        throw new Error();
+      }
+
+      display.value =
+        Function(
+          '"use strict";return ('+
+          display.value+
+          ')'
+        )();
+
+    }catch{
+
+      display.value="Error";
+
+    }
+
+    return;
+
+  }
+
+  display.value+=value;
+
+}
+
+
+/* ================= CALCULATORS ================= */
+
+function calculatePercentage(){
+
+  const n =
+    Number(document.getElementById("percentNumber").value);
+
+  const p =
+    Number(document.getElementById("percentValue").value);
+
+  document.getElementById("toolResult").textContent =
+    isFinite(n*p/100)
+    ? `${p}% of ${n} = ${n*p/100}`
+    : "Please enter valid numbers.";
+
+}
+
+
+function calculateGST(){
+
+  const amount =
+    Number(document.getElementById("gstAmount").value);
+
+  const rate =
+    Number(document.getElementById("gstRate").value);
+
+  const tax =
+    amount*rate/100;
+
+  document.getElementById("toolResult").textContent =
+`GST Amount: ₹${tax.toFixed(2)}
+Final Amount: ₹${(amount+tax).toFixed(2)}`;
+
+}
+
+
+function calculateDiscount(){
+
+  const price =
+    Number(document.getElementById("originalPrice").value);
+
+  const rate =
+    Number(document.getElementById("discountRate").value);
+
+  const saving =
+    price*rate/100;
+
+  document.getElementById("toolResult").textContent =
+`You save: ₹${saving.toFixed(2)}
+Final Price: ₹${(price-saving).toFixed(2)}`;
+
+}
+
+
+function calculateAge(){
+
+  const date =
+    new Date(
+      document.getElementById("birthDate").value
+    );
+
+  if(isNaN(date)){
+    document.getElementById("toolResult").textContent =
+      "Please select your date of birth.";
+    return;
+  }
+
+  const today=new Date();
+
+  let years =
+    today.getFullYear()-date.getFullYear();
+
+  const month =
+    today.getMonth()-date.getMonth();
+
+  if(
+    month<0 ||
+    (
+      month===0 &&
+      today.getDate()<date.getDate()
+    )
+  ){
+    years--;
+  }
+
+  document.getElementById("toolResult").textContent =
+    `Age: ${years} years`;
+
+}
+
+
+function calculateBMI(){
+
+  const height =
+    Number(document.getElementById("bmiHeight").value)/100;
+
+  const weight =
+    Number(document.getElementById("bmiWeight").value);
+
+  if(height<=0 || weight<=0){
+    document.getElementById("toolResult").textContent =
+      "Please enter valid height and weight.";
+    return;
+  }
+
+  const bmi =
+    weight/(height*height);
+
+  let category;
+
+  if(bmi<18.5)
+    category="Underweight";
+  else if(bmi<25)
+    category="Normal range";
+  else if(bmi<30)
+    category="Overweight";
+  else
+    category="Obesity";
+
+  document.getElementById("toolResult").textContent =
+`BMI: ${bmi.toFixed(2)}
+Category: ${category}`;
+
+}
+
+
+function calculateEMI(){
+
+  const P =
+    Number(document.getElementById("loanAmount").value);
+
+  const annual =
+    Number(document.getElementById("annualInterest").value);
+
+  const months =
+    Number(document.getElementById("loanMonths").value);
+
+  if(P<=0 || months<=0){
+    document.getElementById("toolResult").textContent =
+      "Please enter valid values.";
+    return;
+  }
+
+  const r=annual/12/100;
+
+  const emi =
+    r===0
+    ? P/months
+    : P*r*Math.pow(1+r,months)/
+      (Math.pow(1+r,months)-1);
+
+  document.getElementById("toolResult").textContent =
+`Monthly EMI: ₹${emi.toFixed(2)}
+Total Payment: ₹${(emi*months).toFixed(2)}
+Total Interest: ₹${(emi*months-P).toFixed(2)}`;
+
+}
+
+
+function calculateProfit(){
+
+  const cost =
+    Number(document.getElementById("costPrice").value);
+
+  const sell =
+    Number(document.getElementById("sellingPrice").value);
+
+  const difference=sell-cost;
+
+  document.getElementById("toolResult").textContent =
+    difference>=0
+    ?
+`Profit: ₹${difference.toFixed(2)}
+Profit %: ${(difference/cost*100).toFixed(2)}%`
+    :
+`Loss: ₹${Math.abs(difference).toFixed(2)}
+Loss %: ${(Math.abs(difference)/cost*100).toFixed(2)}%`;
+
+}
+
+
+/* ================= CONVERTERS ================= */
+
+function convertUnits(type){
+
+  const value =
+    Number(document.getElementById("converterValue").value);
+
+  const from =
+    document.getElementById("converterFrom").value;
+
+  const to =
+    document.getElementById("converterTo").value;
+
+  let result;
+
+
+  if(type==="length"){
+
+    const units={
+      meter:1,
+      kilometer:1000,
+      foot:.3048,
+      inch:.0254,
+      mile:1609.344
+    };
+
+    result=value*units[from]/units[to];
+
+  }
+
+
+  if(type==="weight"){
+
+    const units={
+      kg:1,
+      gram:.001,
+      pound:.45359237,
+      ounce:.0283495
+    };
+
+    result=value*units[from]/units[to];
+
+  }
+
+
+  if(type==="data"){
+
+    const units={
+      byte:1,
+      kb:1024,
+      mb:1048576,
+      gb:1073741824
+    };
+
+    result=value*units[from]/units[to];
+
+  }
+
+
+  if(type==="temperature"){
+
+    let celsius;
+
+    if(from==="celsius")
+      celsius=value;
+
+    if(from==="fahrenheit")
+      celsius=(value-32)*5/9;
+
+    if(from==="kelvin")
+      celsius=value-273.15;
+
+
+    if(to==="celsius")
+      result=celsius;
+
+    if(to==="fahrenheit")
+      result=celsius*9/5+32;
+
+    if(to==="kelvin")
+      result=celsius+273.15;
+
+  }
+
+
+  document.getElementById("toolResult").textContent =
+`${value} ${from} = ${result.toFixed(6)} ${to}`;
+
+}
+
+
+/* ================= TEXT ================= */
+
+function countWords(){
+
+  const text =
+    document.getElementById("wordText").value;
+
+  const words =
+    text.trim()
+    ? text.trim().split(/\s+/).length
+    : 0;
+
+  const characters=text.length;
+
+  const lines=
+    text
+    ? text.split("\n").length
+    : 0;
+
+  document.getElementById("toolResult").textContent =
+`Words: ${words}
+Characters: ${characters}
+Lines: ${lines}`;
+
+}
+
+
+function convertCase(type){
+
+  const text =
+    document.getElementById("caseInput").value;
+
+  let output="";
+
+  if(type==="upper")
+    output=text.toUpperCase();
+
+  if(type==="lower")
+    output=text.toLowerCase();
+
+  if(type==="title")
+    output=text
+      .toLowerCase()
+      .replace(/\b\w/g,char=>char.toUpperCase());
+
+  document.getElementById("caseOutput").value =
+    output;
+
+}
+
+
+function removeExtraSpaces(){
+
+  const text =
+    document.getElementById("spacesInput").value;
+
+  document.getElementById("spacesOutput").value =
+    text
+      .split("\n")
+      .map(line=>line.trim().replace(/\s+/g," "))
+      .join("\n");
+
+}
+
+
+function generateSlug(){
+
+  const text =
+    document.getElementById("slugInput").value;
+
+  const slug =
+    text
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9\s-]/g,"")
+      .replace(/\s+/g,"-")
+      .replace(/-+/g,"-");
+
+  document.getElementById("toolResult").textContent =
+    slug;
+
+}
+
+
+function removeDuplicates(){
+
+  const lines =
+    document
+      .getElementById("duplicateInput")
+      .value
+      .split(/\r?\n/);
+
+  const unique =
+    [...new Set(
+      lines.filter(line=>line.trim())
+    )];
+
+  document.getElementById("duplicateOutput").value =
+    unique.join("\n");
+
+}
+
+
+/* ================= DEVELOPER ================= */
+
+function formatJSON(){
+
+  try{
+
+    const object =
+      JSON.parse(
+        document.getElementById("jsonInput").value
+      );
+
+    document.getElementById("toolResult").textContent =
+      JSON.stringify(object,null,2);
+
+  }catch(error){
+
+    document.getElementById("toolResult").textContent =
+      "Invalid JSON.\n\n"+error.message;
+
+  }
+
+}
+
+
+function encodeBase64(){
+
+  const text =
+    document.getElementById("baseInput").value;
+
+  try{
+
+    document.getElementById("baseOutput").value =
+      btoa(unescape(encodeURIComponent(text)));
+
+  }catch{
+
+    document.getElementById("baseOutput").value =
+      "Encoding error.";
+
+  }
+
+}
+
+
+function decodeBase64(){
+
+  const text =
+    document.getElementById("baseInput").value;
+
+  try{
+
+    document.getElementById("baseOutput").value =
+      decodeURIComponent(
+        escape(atob(text))
+      );
+
+  }catch{
+
+    document.getElementById("baseOutput").value =
+      "Invalid Base64.";
+
+  }
+
+}
+
+
+function encodeURL(){
+
+  document.getElementById("urlOutput").value =
+    encodeURIComponent(
+      document.getElementById("urlInput").value
+    );
+
+}
+
+
+function decodeURL(){
+
+  try{
+
+    document.getElementById("urlOutput").value =
+      decodeURIComponent(
+        document.getElementById("urlInput").value
+      );
+
+  }catch{
+
+    document.getElementById("urlOutput").value =
+      "Invalid encoded URL.";
+
+  }
+
+}
+
+
+function generateUUID(){
+
+  document.getElementById("toolResult").textContent =
+    crypto.randomUUID
+    ? crypto.randomUUID()
+    : "UUID is not supported in this browser.";
+
+}
+
+
+/* ================= SECURITY ================= */
+
+function generatePassword(){
+
+  let length =
+    Number(
+      document.getElementById("passwordLength").value
+    );
+
+  length=Math.max(4,Math.min(100,length||16));
+
+  const characters =
+    "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*";
+
+  let output="";
+
+  const randomValues =
+    new Uint32Array(length);
+
+  crypto.getRandomValues(randomValues);
+
+  for(let i=0;i<length;i++){
+
+    output+=
+      characters[
+        randomValues[i]%characters.length
+      ];
+
+  }
+
+  document.getElementById("toolResult").textContent =
+    output;
+
+}
+
+
+function generateRandom(){
+
+  let min=
+    Number(document.getElementById("randomMin").value);
+
+  let max=
+    Number(document.getElementById("randomMax").value);
+
+  if(min>max)
+    [min,max]=[max,min];
+
+  const number =
+    Math.floor(
+      Math.random()*(max-min+1)
+    )+min;
+
+  document.getElementById("toolResult").textContent =
+    number;
+
+}
+
+
+/* ================= DESIGN ================= */
+
+function convertColor(){
+
+  let hex =
+    document
+      .getElementById("hexInput")
+      .value
+      .replace("#","");
+
+  if(!/^[0-9a-fA-F]{6}$/.test(hex)){
+
+    document.getElementById("toolResult").textContent =
+      "Enter a valid 6-digit HEX color.";
+
+    return;
+
+  }
+
+  const r=parseInt(hex.substring(0,2),16);
+  const g=parseInt(hex.substring(2,4),16);
+  const b=parseInt(hex.substring(4,6),16);
+
+  document.getElementById("toolResult").textContent =
+    `RGB(${r}, ${g}, ${b})`;
+
+}
+
+
+function generateGradient(){
+
+  const one =
+    document.getElementById("gradientOne").value;
+
+  const two =
+    document.getElementById("gradientTwo").value;
+
+  const angle =
+    document.getElementById("gradientAngle").value;
+
+  const css =
+    `linear-gradient(${angle}deg, ${one}, ${two})`;
+
+  document.getElementById("gradientPreview").style.background =
+    css;
+
+  document.getElementById("toolResult").textContent =
+    css;
+
+}
+
+
+/* ================= QR ================= */
+
+function generateQR(){
+
+  const text =
+    document
+      .getElementById("qrInput")
+      .value
+      .trim();
+
+  const output =
+    document.getElementById("qrOutput");
+
+  if(!text){
+
+    output.innerHTML =
+      `<p style="color:#f87171">
+      Please enter text or a URL.
+      </p>`;
+
+    return;
+
+  }
+
+  const encoded =
+    encodeURIComponent(text);
+
+  output.innerHTML=`
+
+    <img
+      src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encoded}"
+      alt="Generated QR"
+      style="
+        width:220px;
+        max-width:100%;
+        padding:8px;
+        background:#fff;
+        border-radius:14px;
+      "
+    >
+
+    <br><br>
+
+    <a
+      href="https://api.qrserver.com/v1/create-qr-code/?size=700x700&data=${encoded}"
+      target="_blank"
+      class="btn primary"
+      style="display:inline-block"
+    >
+      Open QR Image
+    </a>
+
+  `;
+
+}
+
+
+/* ================= POMODORO ================= */
+
+let pomodoroInterval=null;
+let pomodoroSeconds=1500;
+
+function startPomodoro(){
+
+  clearInterval(pomodoroInterval);
+
+  pomodoroInterval=
+    setInterval(()=>{
+
+      if(pomodoroSeconds<=0){
+
+        clearInterval(pomodoroInterval);
+
+        return;
+
+      }
+
+      pomodoroSeconds--;
+
+      updatePomodoro();
+
+    },1000);
+
+}
+
+
+function resetPomodoro(){
+
+  clearInterval(pomodoroInterval);
+
+  pomodoroSeconds=1500;
+
+  updatePomodoro();
+
+}
+
+
+function updatePomodoro(){
+
+  const minutes =
+    Math.floor(pomodoroSeconds/60)
+      .toString()
+      .padStart(2,"0");
+
+  const seconds =
+    (pomodoroSeconds%60)
+      .toString()
+      .padStart(2,"0");
+
+  const element =
+    document.getElementById("pomodoroTimer");
+
+  if(element)
+    element.textContent =
+      `${minutes}:${seconds}`;
+
+}
+
+
+/* ================= STOPWATCH ================= */
+
+let stopwatchInterval=null;
+let stopwatchSeconds=0;
+
+function startStopwatch(){
+
+  clearInterval(stopwatchInterval);
+
+  stopwatchInterval=
+    setInterval(()=>{
+
+      stopwatchSeconds++;
+
+      const hours =
+        Math.floor(stopwatchSeconds/3600);
+
+      const minutes =
+        Math.floor(
+          (stopwatchSeconds%3600)/60
+        );
+
+      const seconds =
+        stopwatchSeconds%60;
+
+      const element =
+        document.getElementById("stopwatchTimer");
+
+      if(element){
+
+        element.textContent =
+          `${String(hours).padStart(2,"0")}:`+
+          `${String(minutes).padStart(2,"0")}:`+
+          `${String(seconds).padStart(2,"0")}`;
+
+      }
+
+    },1000);
+
+}
+
+
+function stopStopwatch(){
+
+  clearInterval(stopwatchInterval);
+
+}
+
+
+function resetStopwatch(){
+
+  clearInterval(stopwatchInterval);
+
+  stopwatchSeconds=0;
+
+  const element =
+    document.getElementById("stopwatchTimer");
+
+  if(element)
+    element.textContent="00:00:00";
+
+}
+
+
+/* ================= SUBSCRIPTION QR ================= */
+
+function showQR(plan){
+
+  document.getElementById("selectedPlan")
+    .textContent=plan;
+
+  document
+    .getElementById("qrModal")
+    .classList.add("show");
+
+}
+
+
+function closeQR(){
+
+  document
+    .getElementById("qrModal")
+    .classList.remove("show");
+
+}
+
+
+/* ================= OUTSIDE CLICK ================= */
+
+document.addEventListener("click",function(event){
+
+  const toolModal =
+    document.getElementById("toolModal");
+
+  const qrModal =
+    document.getElementById("qrModal");
+
+  if(event.target===toolModal)
+    closeTool();
+
+  if(event.target===qrModal)
+    closeQR();
+
+});
+
+
+/* ================= ESCAPE ================= */
+
+document.addEventListener("keydown",function(event){
+
+  if(event.key==="Escape"){
+
+    closeTool();
+    closeQR();
+
+  }
+
+});
+
+</script>
+
+</body>
+  </html>
